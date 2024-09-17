@@ -1,0 +1,78 @@
+import numpy as np
+
+# flight data
+data=[[1,'station 1','station 2',"12:00",[12,10]],
+      [2,'station 2','station 4',"09:00",[11,9]],
+      [3,'station 3','station 2',"11:00",[0,0]]]
+flight_schedule=np.array(data)
+# business eco
+passen_data=[[101,"Rohan",[[1,[0,2]],[2,[3,0]]]],
+             [102,"Soham",[[1,[0,1]],[2,[3,0]]]],
+             [103,"Aman",[[1,[0,2]]]]]
+
+passenger_records=np.array(passen_data)
+print("Flight Data")
+print(flight_schedule)
+print('\n')
+print("Passenger Data")
+print(passenger_records)
+
+passenger_id=102
+def find_reservation(passen_id,passenger_data):
+    print("Finding reservations ....")
+    length=len(passenger_data)
+    for i in range(0,length):
+        if(passenger_records[i][0]==passen_id):
+            print("Reservation ",passenger_records[i][2])
+
+find_reservation(passenger_id,passenger_records)
+
+def fully_booked():
+    print("Fully Booked seats ....")
+    length=len(flight_schedule)
+    flag=0
+    for i in range(0,length):
+        print(flight_schedule[i][4][0])
+        print(flight_schedule[i][4][1])
+        if flight_schedule[i][4][0]==0 and flight_schedule[i][4][1]==0:
+            print("Flight Id:(fully booked)->  ",flight_schedule[i][0])
+            flag=1
+    if(flag==0):
+        print("Seats Available")
+        
+fully_booked()
+def seats_available():
+    fid=int(input("Enter flight id to change seat number"))
+    length=len(flight_schedule)
+    for i in range(0,length):
+        if(flight_schedule[i][0]==fid):
+            print("Business Seats initial",flight_schedule[i][4][0])
+            seat=int(input("New Business Seats "))
+            flight_schedule[i][4][0]=seat
+            print("Successfully Updated (business seats)-> ",seat)
+            
+            print("Economic Seats initial",flight_schedule[i][4][1])
+            seat=int(input("New Economic Seats "))
+            flight_schedule[i][4][1]=seat
+            print("Successfully Updated (economic seats)-> ",seat)
+            print(flight_schedule)
+            
+seats_available() 
+reservation={1:0,2:0,3:0}
+def min_max_flights():
+    length=len(passenger_records)
+    for i in range(0,length,1):
+        x=len(passenger_records[i][2])
+#         print(x)
+        for j in range(0,x,1):
+#             print(passenger_records[i][2][j][1][0])
+            reservation[passenger_records[i][2][j][0]]=reservation[passenger_records[i][2][j][0]]+passenger_records[i][2][j][1][0]+passenger_records[i][2][j][1][1]
+        
+   
+    l=len(reservation)
+    seat=np.array(list(reservation.values()))
+    
+    print("Maximum Seats Booked",seat.max())
+    print("Minimum Seats Booked",seat.min())
+min_max_flights()
+print(reservation)
