@@ -1,0 +1,67 @@
+from sklearn.datasets import load_diabetes
+import sklearn as sk
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+data=load_diabetes()
+# print(data)
+# a 
+X=data.data
+y=data.target
+
+# print(X)
+# print(y)
+
+
+plt.title('Distribution')
+plt.xlabel('features')
+plt.ylabel('output')
+plt.plot(X,y)
+plt.show()
+
+X=X.transpose()
+# b
+feature=data.feature_names
+
+# finding numerical data
+for i in range(0,len(feature)+1):
+    if type(x[i][0])==int:
+        print(data[i])
+        
+
+#finding categorical data
+for i in range(0,len(feature)+1):
+    if type(x[i][0])==int:
+        print(data[i])
+        
+for i in range(0,len(feature)+1):
+#     plt.title('Distribution')
+#     plt.xlabel(feature[i])
+#     plt.ylabel('output')
+#     plt.hist(data[x][i],y)
+#     plt.figure(figsize=(8, 6))
+#     plt.hist(, bins=30, color='cyan', edgecolor='black')
+   
+    plt.show()
+
+
+
+# no fo classes
+print("No of classes",len(feature))
+numerical_features = data.select_dtypes(include=['int64', 'float64']).columns
+categorical_features = data.select_dtypes(include=['object', 'category']).columns
+print(numerical_features)
+print(categorical_features)
+# for f in feature:
+#     for k in feature:
+#         plt.plot(data[f],data[k])
+
+# X_test,X_train,Y_text,Y_Train=RandomForestClassifier(data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+
+prthreshold = y.mean() 
